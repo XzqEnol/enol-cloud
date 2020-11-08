@@ -1,0 +1,21 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: enol-user-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/cloud_user?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+  zipkin:
+    base-url: http://192.168.0.194:9411/ #zipkin地址
+    discovery-client-enabled: false #不⽤开启服发现
+  sleuth:
+    sampler:
+      probability: 1.0 #采样百分⽐
+# 控制台输出sql、下划线转驼峰
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true

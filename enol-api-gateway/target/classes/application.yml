@@ -1,0 +1,30 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://192.168.0.194:8848
+    gateway:
+      routes: #数组形式
+        - id: order-service #唯一标识
+          #uri: http://localhost:8000 #需要转发的地址
+          uri: lb://enol-order-service #获取nacos服务名称
+          order: 1 #优先级
+          predicates: #断言
+            - Path=/order-service/**  #配置哪个路径才转发
+           # - Before=2020-11-09T01:01:01.000+08:00 #配置该服务在该时间之前才能访问
+           # - Query=orgName #配置该服务必须要有该指定参数才能访问
+          filters: #过滤器，请求在传递过程中通过过滤器修改
+            - StripPrefix=1  #去掉端口后的第一层前缀路径
+      discovery:
+        locator:
+          enabled: true  #开启网网关拉去nacos服务
+  zipkin:
+    base-url: http://192.168.0.194:9411/ #zipkin地址
+    discovery-client-enabled: false #不⽤开启服发现
+  sleuth:
+    sampler:
+      probability: 1.0 #采样百分⽐

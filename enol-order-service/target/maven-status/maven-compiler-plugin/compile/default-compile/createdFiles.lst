@@ -1,0 +1,6 @@
+com\enol\handler\EnolBlockHanlder.class
+com\enol\controller\VideoOrderController.class
+com\enol\OrderApplication.class
+com\enol\service\VideoService.class
+com\enol\service\fallback\VideoServiceFallBack.class
+com\enol\config\BeanConfiguration.class
