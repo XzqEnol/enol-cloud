@@ -2,7 +2,7 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 192.168.0.194:8848 #nacos配置中心
+        server-addr: http://172.21.201.129:8848  #nacos配置中心
         file-extension: yaml  #指定nacos文件类型
   application:
     name: enol-order-service

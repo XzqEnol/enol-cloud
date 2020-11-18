@@ -5,6 +5,8 @@ import com.enol.domain.VideoOrder;
 import com.enol.service.VideoService;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,9 +17,13 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/video/v2")
+@RefreshScope //修改nacos配置后，实时刷新
 public class VideoOrderController {
     @Autowired
     private VideoService videoService;
+
+    @Value("${video.title}")
+    private String title;
 
     int temp = 0;
 
@@ -30,7 +36,7 @@ public class VideoOrderController {
         VideoOrder videoOrder = new VideoOrder();
         videoOrder.setCreateTime(new Date());
         videoOrder.setVideoId(videoId);
-        videoOrder.setVideoTitle(video.getTitle());
+        videoOrder.setVideoTitle(title);
         videoOrder.setVideoImg(video.getCoverImg());
         videoOrder.setServerInfo(video.getServerInfo());
         return videoOrder;
